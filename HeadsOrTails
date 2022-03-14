@@ -1,0 +1,50 @@
+import UIKit
+
+//global variable because of scope. Needed in multiple functions
+var answer: String = ""
+
+func tossCoin() -> String{
+    print("Tossing a Coin!")
+    var result: Int
+    
+    //random number between 0 and 1
+    result = Int.random(in: 0...1)
+    
+    //conditions
+    if (result==0){
+        answer = "Heads"
+    }else if(result == 1){
+        answer = "Tails"
+    }
+    print(answer)
+    return answer
+}
+
+//function that will call tossCoin function "input" number of times and keep track of number of heads and tails using ratio
+func tossMultipleCoins(input: Int)->Double{
+    //keep track of loop
+    var pos: Int = 0
+    //keep track of number of heads and tails
+    var numHeads: Double = 0
+    var numTails: Double = 0
+    
+    //loop "input" number of times
+    while(pos < input){
+        tossCoin()
+        pos+=1
+        if(answer == "Tails"){
+            numTails+=1
+        }else if(answer == "Heads"){
+            numHeads+=1
+        }
+        
+        
+    }
+    let ratio: Double = numHeads/(numTails+numHeads)
+    //This was just to test if the ratio was working correctly. Returning the ratio doesnt really have practical functionality right now.
+    //print(ratio)
+    return ratio
+    
+}
+//test case of 6 tosses
+tossMultipleCoins(input: 6)
