@@ -1,0 +1,5 @@
+import UIKit
+//iterate through range 1 to 255
+for i in 1...255{
+    print(i)
+}
