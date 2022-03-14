@@ -1,0 +1,8 @@
+import UIKit
+
+//used var because the value has to be changed in order to loop
+var x = 1
+while x < 256{
+    print(x)
+    x+=1
+}
