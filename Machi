@@ -1,0 +1,133 @@
+import UIKit
+
+struct Card{
+    
+    var Color: String
+    var Roll: Int
+    
+    init(){
+        Roll = Int.random(in: 1...6)
+        Color = ""
+                
+        if(Roll == 1 || Roll == 2){
+            Color = "Blue"
+        }else if(Roll == 3 || Roll == 4){
+            Color = "Red"
+        }else if(Roll == 5 || Roll == 6){
+            Color = "Green"
+        }
+    }
+    //second initializer for creating the deck. Probably a way to just loop and check for each color until deck is full
+    // but this is easier
+    init(Color: String){
+            Roll = Int.random(in: 1...6)
+            self.Color = Color
+    }
+}
+
+class Deck{
+    //var currentCard: Int
+    //let ColorMax: Int
+    var cards: [Card]
+    
+    func deal(card: Card) -> Card {
+        //have a question about this. is there a better of doing this than just forcing the unwrap?
+        cards.popLast()!
+        
+    }
+    
+    func isEmpty() -> Bool {
+        cards.isEmpty
+    }
+    
+    func shuffle(){
+        cards.shuffle()
+    }
+    
+    init(){
+            //let ColorMax = 10
+            //var currentCard = 0
+            cards = [Card]()
+
+            var count: Int = 0
+            var blueCount: Int = 0
+            var redCount: Int = 0
+            var greenCount: Int = 0
+        
+            
+            // just filling the deck with 30 cards
+            while(count<30){
+                if(blueCount<10){
+                    cards.append(Card(Color: "Blue"))
+                    blueCount = blueCount + 1
+                }else if(redCount<10){
+                    cards.append(Card(Color: "Red"))
+                    redCount = redCount + 1
+                }else if(greenCount<10){
+                    cards.append(Card(Color: "Green"))
+                    greenCount = greenCount + 1
+                }
+                count = count + 1
+            }
+        }
+}
+
+//test
+//var test: Deck = Deck()
+//
+//test.isEmpty()
+
+class Player{
+    
+    var name: String
+    var hand: [Card]
+    func draw(deck: Deck)->Card{
+    //IDE debugger says "Editor placeholder in source file
+        hand.append( deck.deal(card: <#T##Card#>))
+        var count: Int = 0
+        //loop through hand for the most recent addition of the deal
+        for i in 0..<hand.count{
+            hand[i]
+            count+=1
+        }
+        return hand[count]
+        
+    }
+    //dunno whats the functionally of this function tbh. just followed instructions
+    func rollDice(){
+        Int.random(in: 1...6)
+    }
+    func matchingCards(color: String, num: Int)->Int{
+        
+        var blueCount: Int = 0
+        var redCount: Int = 0
+        var greenCount: Int = 0
+        var answer: Int = 0
+        //loop through and get a count of color of cards
+        for i in 0..<hand.count{
+            if(hand[i].Color == "Red"){
+                redCount += 1
+            }else if(hand[i].Color == "Blue"){
+                blueCount += 1
+            }else if(hand[i].Color == "Green"){
+                greenCount += 1
+            }
+        }
+        
+        //return number of desired cards
+        if(color == "Red" || num == 3 || num == 4){
+            answer = redCount
+        }else if(color == "Blue" || num == 1 || num == 2){
+            answer = blueCount
+        }else if(color == "Green" || num == 5 || num == 6){
+            answer = greenCount
+        }
+        return answer
+        
+    }
+    init(name: String, hand: [Card]){
+        self.name = name
+        self.hand = hand
+    }
+    
+}
